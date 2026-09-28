@@ -1,75 +1,80 @@
 package com.RIAN_HIDAYAT_F52124081aplikasi.utsmobile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ListView listViewAlat;
-    private AlatAdapter adapter;
-    private List<AlatCamping> listAlat;
+    private ListView listViewPlayer;
+    private PlayerAdapter adapter;
+    private List<PlayerEsport> listPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listViewAlat = findViewById(R.id.listViewAlat);
+        listViewPlayer = findViewById(R.id.listViewPlayer);
 
-        // Menyiapkan 5 Data Alat Camping
-        listAlat = new ArrayList<>();
-        listAlat.add(new AlatCamping(
-                "Tenda Dome Kapasitas 4 Person",
-                "Rp 60.000 / Hari",
-                "Tenda dome double layer waterproof, cocok untuk 4 orang. Dilengkapi pasak, tali, dan frame fiber yang kokoh serta tahan hujan deras.",
-                R.drawable.tenda
+        // Menyiapkan Data Player Esport sesuai Gambar di res/drawable
+        listPlayer = new ArrayList<>();
+        listPlayer.add(new PlayerEsport(
+                "Rian",
+                "Captain / Jungler",
+                "Pemain Roster Utama PEMBURU Esport, dengan wr 100%",
+                R.drawable.rian
         ));
 
-        listAlat.add(new AlatCamping(
-                "Carrier Eiger 60 Liter",
-                "Rp 45.000 / Hari",
-                "Tas gunung berkapasitas 60L dengan sistem backsystem ergonimitis yang nyaman untuk pendakian jarak jauh. Sudah termasuk raincover.",
-                R.drawable.carrier
+        listPlayer.add(new PlayerEsport(
+                "Wahyu",
+                "EXP Laner",
+                "Pemain Roster Utama PEMBURU Esport, EXP terjago dirumahnya",
+                R.drawable.wahyu
         ));
 
-        listAlat.add(new AlatCamping(
-                "Sleeping Bag Warm Comfort",
-                "Rp 20.000 / Hari",
-                "Kantong tidur dengan bahan polar tebal yang menjaga suhu tubuh tetap hangat di cuaca dingin pegunungan hingga 5 derajat celcius.",
-                R.drawable.sleping_bag
+        listPlayer.add(new PlayerEsport(
+                "Dhika",
+                "Mid Laner",
+                "Pemain Roster Utama PEMBURU Esport, manusia yang sangat tidak masuk di akal",
+                R.drawable.dhika
         ));
 
-        listAlat.add(new AlatCamping(
-                "Kompor Mawar Portable",
-                "Rp 25.000 / Hari",
-                "Kompor kamping portable berukuran ringkas, menggunakan bahan bakar gas kaleng. Dilengkapi pemantik otomatis dan pelindung angin.",
-                R.drawable.kompor
+        listPlayer.add(new PlayerEsport(
+                "Dadi",
+                "Gold Laner",
+                "Pemain Roster Utama PEMBURU Esport, manusia biasa saja",
+                R.drawable.dadi
         ));
 
-        listAlat.add(new AlatCamping(
-                "Matras Foil Alumunium",
-                "Rp 10.000 / Hari",
-                "Matras lipat dengan lapisan alumunium foil untuk menahan dinginnya lantai/tanah secara efektif, ringan dan mudah dilipat.",
-                R.drawable.matras
+        listPlayer.add(new PlayerEsport(
+                "Dawai",
+                "Roamer",
+                "Pemain Roster Utama PEMBURU Esport, manusia lose treak",
+                R.drawable.dawai
         ));
 
-        adapter = new AlatAdapter(this, listAlat);
-        listViewAlat.setAdapter(adapter);
+        listPlayer.add(new PlayerEsport(
+                "Saadah",
+                "Coach & Manager",
+                "Pelatih Utama PEMBURU Esport, pemain dengan tangan satu",
+                R.drawable.saadah
+        ));
 
-        // Event Klik Item ListView -> Pindah ke Halaman 2 (DetailActivity)
-        listViewAlat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        adapter = new PlayerAdapter(this, listPlayer);
+        listViewPlayer.setAdapter(adapter);
+
+        // Event Klik Item ListView Player
+        listViewPlayer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AlatCamping alatDipilih = listAlat.get(position);
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("DATA_ALAT", alatDipilih);
-                startActivity(intent);
+                PlayerEsport playerDipilih = listPlayer.get(position);
+                Toast.makeText(MainActivity.this, "Player: " + playerDipilih.getNama() + " (" + playerDipilih.getRole() + ")", Toast.LENGTH_SHORT).show();
             }
         });
     }
